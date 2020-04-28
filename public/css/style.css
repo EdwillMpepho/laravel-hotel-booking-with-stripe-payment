@@ -1,0 +1,20 @@
+.hotel-menu li{
+   display:inline;
+   list-style:none;
+}
+.hotel-menu ul{
+    margin:5px auto ;
+}
+.hotel-menu a{
+    color:#f0ffff;
+    font-family: 'Roboto';
+    font-size: 18px;
+    text-decoration: none;
+}
+.brand{
+    font-family: 'Roboto';
+    font-size: 23px;
+}
+a:hover{
+    background-color: #cccccc;
+}
