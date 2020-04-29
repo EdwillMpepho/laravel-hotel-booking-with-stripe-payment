@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Room;
+use App\Booking;
+use DB;
 
 class BookingController extends Controller
 {
@@ -13,7 +16,9 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        $rooms = DB::select('select type,price from rooms where id not In(select room_id from bookings)');
+        $bookings = DB::select('select * from bookings');
+        return view('pages.bookings')->with(['rooms' => $rooms,'bookings' => $bookings]);
     }
 
     /**
@@ -23,7 +28,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.addbooking');
     }
 
     /**

@@ -7,9 +7,9 @@ use App\Room;
 
 class Booking extends Model
 {
-    protected $fillable = ['start_date','end_date','nrOfDays','room_id','totalamount'];
+    protected $fillable = ['start_date','end-date','now','nrOfDays','price','room_id'];
 
-    public function room(){
-      return $this->belongsTo('App\Room');
+    public function rooms() {
+        return $this->hasOne('App\Room');
     }
 }

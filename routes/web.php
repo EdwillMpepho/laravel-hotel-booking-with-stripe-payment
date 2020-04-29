@@ -19,10 +19,6 @@ Route::get('/about', function () {
     return view('pages.aboutus');
 });
 
-Route::get('/contact', function () {
-    return view('pages.contact');
-});
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/booking','BookingController');
