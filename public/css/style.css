@@ -25,3 +25,13 @@ a:hover{
     list-style: none;
     display: inline;
 }
+.add-booking{
+    margin:10px;
+    padding:20px;
+}
+.frm-add{
+    width:auto;
+    height:auto;
+    font-family:'Roboto';
+}
+

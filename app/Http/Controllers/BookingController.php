@@ -28,7 +28,8 @@ class BookingController extends Controller
      */
     public function create()
     {
-        return view('pages.addbooking');
+        $rooms = DB::select('select id,type,price from rooms where id not In(select room_id from bookings)');
+        return view('pages.addbooking')->with('rooms',$rooms);
     }
 
     /**
@@ -39,7 +40,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return 123;
     }
 
     /**
@@ -50,7 +51,7 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        //
+        //return 123;
     }
 
     /**
