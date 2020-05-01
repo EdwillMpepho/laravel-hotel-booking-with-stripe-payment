@@ -14,6 +14,7 @@
         @else
            <h4>Sorry, The hotel is full</h4>
        @endif
+        <p><span class="notice">Notice:you cannot book for today!!</span></p>
        <div class="frm-add">
            <form action="{{route('booking.store')}}" method="POST">
               {{ csrf_field() }}
@@ -27,27 +28,30 @@
                   <label>Email Address:</label>
                     <input type="email" id="email" name="email" placeholder="enter email"  required>
                   <label>Number OF Days:</label>
-                     <input type="text" id="startDate" value="2" name="startDate" readonly required>
+                     <input type="text" id="nrOfDays"  name="nrOfDays" readonly required>
                </p>
                <p>
-                 <label>Start Date:</label>
-                   <input type="date" id="startDate" name="startDate" placeholder="start date" required>
-                   <label>End Date:</label>
-                   <input type="date" id="endDate" name="endDate" placeholder="start date" required>
-               </p>
-               <p>
-                   <label>Select Room:</label>
-                   <select id="type" name="type">
-                       <option value="">please select your room</option>
-                       @foreach ($rooms as $room)
-                       <option value="{{$room->id}}">{{$room->type}}:{{$room->price}}</option>
-                       @endforeach
+                  <label>Select Room:</label>
+                   <select id="room_id" name="room_id">
+                      <option value="">please select your room</option>
+                        @foreach ($rooms as $room)
+                         <option value="{{$room->id}}">{{$room->type}}:{{$room->price}}</option>
+                        @endforeach
                    </select>
-                </p>
-                <p>
+               </p>
+               <p>
+                  <label>Check In Date:</label>
+                    <input type="date"  id="start" name="start" onchange="clearMessage()" required/>
+                  <label>Check Out Date:</label>
+                    <input type="date" id="end" name="end" onchange="getNrOfDays()" required>
+               </p>
+               <p>
                     <input type="submit" name="submit" value="save" class="btn btn-default btn-lg">
-                </p>
+               </p>
            </form>
+           <!-- display an error message if there is an error -->
+           <p id="message">
+           </p>
        </div>
    </div>
 @endsection

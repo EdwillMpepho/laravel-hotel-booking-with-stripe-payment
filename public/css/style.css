@@ -34,4 +34,12 @@ a:hover{
     height:auto;
     font-family:'Roboto';
 }
+.notice{
+    color:#ff0000;
+}
+#message{
+    color: #ff0000;
+    font-family:'Roboto';
+    font-size:23px;
+}
 

@@ -16,9 +16,11 @@
     <div id="app">
       @include('nav.navbar')
       <div class="container">
+        @include('messages.message')
         @yield('content')
       </div>
     </div>
-    <script src="{{asset('js/app/js')}}"></script>
+    <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{asset('js/add-booking.js')}}"></script>
 </body>
 </html>
