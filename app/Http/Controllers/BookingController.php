@@ -17,7 +17,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $rooms = DB::select('select type,price from rooms where id not In(select room_id from bookings)');
+        $rooms = DB::select('select type,price from rooms');
         $bookings = DB::select('select * from bookings');
         return view('pages.bookings')->with(['rooms' => $rooms,'bookings' => $bookings]);
     }
@@ -29,7 +29,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-        $rooms = DB::select('select id,type,price from rooms where id not In(select room_id from bookings)');
+        $rooms = DB::select('select id,type,price from rooms');
         return view('pages.addbooking')->with('rooms',$rooms);
     }
 
@@ -50,10 +50,10 @@ class BookingController extends Controller
              'room_id'    => 'required',
              'name'       => 'required|min:4|max:191',
              'email'      => 'required|email',
-             'telno'      =>  'required|min:10'
+             'telno'      => 'required|min:10'
         ]);
 
-
+        // getting data from inputs
         $name = $request->input('name');
         $telno = $request->input('telno');
         $nrOfDays = $request->input('nrOfDays');
@@ -70,10 +70,22 @@ class BookingController extends Controller
         $updated_at = now();
         $created_at = now();
 
+        // check if there are available rooms
+        $room_available = DB::select('select id,type,price from rooms where id in
+         (select room_id from bookings where start_date between :start_date and :end_date )',
+         ['start_date' => $start_date, 'end_date' => $end_date]);
+
+         if ($room_available) {
+           return redirect('/booking/create')->with('error_message',
+           'Sorry the room you are booked is booked');
+         }
+
+        // Insert data into bookings
         $booking = DB::insert('insert into bookings(id,start_date,end_date,nrOfDays,price,room_id,
         created_at,updated_at,name,telno,email) values(?,?,?,?,?,?,?,?,?,?,?)',[null,$start_date,$end_date,$nrOfDays,$price,$room_id,
         $created_at,$updated_at,$name,$telno,$email]);
 
+        // check if booking is successful
         if ($booking) {
            return redirect('/booking ')->with('success_message',
                             'Booking was successful,thank you for choosing us');

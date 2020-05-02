@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <h1 style="margin:10px auto;">Bookings</h1>
+  <div class="row">
+    <div class="col-xs-12">
+     <h1 style="margin:10px auto;">Bookings</h1>
     <hr/>
       <div class="hotel-bookings">
         <a href="booking/create" class="btn btn-primary">Add Booking</a>
@@ -14,7 +16,22 @@
                   @endforeach
               </ul>
              @if(count($bookings) > 0)
-                <p>Bookings are available</p>
+                <table class="table table-bordered">
+                  <tr>
+                      <th>Full Name</th>
+                      <th>Room Number</th>
+                      <th>Check In Date</th>
+                      <th>Check Out Date</th>
+                  </tr>
+                  @foreach ($bookings as $booking)
+                   <tr>
+                      <td>{{ $booking->name }}</td>
+                      <td>{{ $booking->room_id }}</td>
+                      <td>{{ $booking->start_date }}</td>
+                      <td>{{ $booking->end_date }}</td>
+                   </tr>
+                  @endforeach
+                </table>
              @else
                 <p>No bookings are available</p>
              @endif
@@ -22,4 +39,6 @@
              <p>No rooms available</p>
         @endif
       </div>
+    </div>
+  </div>
 @endsection
