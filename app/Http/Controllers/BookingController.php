@@ -70,11 +70,11 @@ class BookingController extends Controller
         $updated_at = now();
         $created_at = now();
 
-        $booking = DB::insert('insert into bookings(id,start_date,end_date,nrOfDays,price,room_id
-        created_at,updated_at,name,telno,email) values(?,?,?,?,?,?,?,?,?,?,?)',
-        [null,$start_date,$end_date,$nrOfDays,$totalamount,$room_id,$created_at,$updated_at,$name,$telno,$email]);
+        $booking = DB::insert('insert into bookings(id,start_date,end_date,nrOfDays,price,room_id,
+        created_at,updated_at,name,telno,email) values(?,?,?,?,?,?,?,?,?,?,?)',[null,$start_date,$end_date,$nrOfDays,$price,$room_id,
+        $created_at,$updated_at,$name,$telno,$email]);
 
-         if ($booking) {
+        if ($booking) {
            return redirect('/booking ')->with('success_message',
                             'Booking was successful,thank you for choosing us');
          }else {
