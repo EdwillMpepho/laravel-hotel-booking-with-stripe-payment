@@ -22,3 +22,8 @@ Route::get('/about', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/booking','BookingController');
+// add to payments routes
+Route::get('/addtopayment', 'AddToPaymentController@index');
+Route::get('/addtopayment/create/{id}', 'AddToPaymentController@create');
+Route::post('/addtopayment', 'AddToPaymentController@store');
+

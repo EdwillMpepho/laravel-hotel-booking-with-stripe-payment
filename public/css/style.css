@@ -42,4 +42,12 @@ a:hover{
     font-family:'Roboto';
     font-size:23px;
 }
+.cancel-bookings{
+    float: right;
+
+}
+.edit-bookings{
+    float: left;
+    margin:10px 20px;
+}
 

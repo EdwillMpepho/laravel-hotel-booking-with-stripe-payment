@@ -47,11 +47,12 @@
                </p>
                <p>
                     <input type="submit" name="submit" value="save" class="btn btn-default btn-lg">
+                    <a href="/booking" class="btn btn-info btn-lg">Cancel</a>
                </p>
            </form>
            <!-- display an error message if there is an error -->
            <p id="message">
            </p>
-       </div>
+        </div>
    </div>
 @endsection

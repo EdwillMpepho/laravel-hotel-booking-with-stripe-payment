@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             MET Hotel
@@ -12,12 +12,10 @@
             <ul class="navbar-nav mr-auto">
 
             </ul>
-
-            <!-- Right Side Of Navbar -->
+           <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto hotel-menu">
                 <li class="nav-item"><a  class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a  class="nav-link"  href="/booking">Bookings</a></li>
-                <li class="nav-item"><a  class="nav-link" href="/aboutus">About</a></li>
+                <li class="nav-item"><a  class="nav-link" href="/about">About</a></li>
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
@@ -29,6 +27,7 @@
                         </li>
                     @endif
                 @else
+                   <li class="nav-item"><a  class="nav-link" href="/booking">Booking</a></li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>

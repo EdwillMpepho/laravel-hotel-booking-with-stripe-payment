@@ -6,10 +6,20 @@ use Illuminate\Http\Request;
 use App\Room;
 use App\Booking;
 use App\TotalPrice;
+use App\User;
 use DB;
 
 class BookingController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -61,6 +71,8 @@ class BookingController extends Controller
         $start_date = $request->input('start');
         $end_date = $request->input('end');
         $room_id = $request->input('room_id');
+        //auth user id
+        $user_id = auth()->user()->id;
         //get a price via room id
         $price = $this->getPrice($room_id);
         //get a total Price from a model
@@ -77,13 +89,17 @@ class BookingController extends Controller
 
          if ($room_available) {
            return redirect('/booking/create')->with('error_message',
-           'Sorry the room you are booked is booked');
+           'Sorry the room you are booking  is booked');
+         }
+          // check if user is null
+        if ($user_id == null || $user_id != auth()->user()->id) {
+            return redirect('/booking/create')->with('error_message','You need to register in order to create a booking');
          }
 
         // Insert data into bookings
         $booking = DB::insert('insert into bookings(id,start_date,end_date,nrOfDays,price,room_id,
-        created_at,updated_at,name,telno,email) values(?,?,?,?,?,?,?,?,?,?,?)',[null,$start_date,$end_date,$nrOfDays,$price,$room_id,
-        $created_at,$updated_at,$name,$telno,$email]);
+        created_at,updated_at,name,telno,email,user_id) values(?,?,?,?,?,?,?,?,?,?,?,?)',[null,$start_date,$end_date,$nrOfDays,$totalamount,$room_id,
+        $created_at,$updated_at,$name,$telno,$email,$user_id]);
 
         // check if booking is successful
         if ($booking) {
@@ -103,7 +119,14 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        //return 123;
+
+
+        $rooms = DB::select('select id,type,price from rooms where id
+                 in(select id from bookings where id = :id )',['id' => $id ]);
+        $bookings = DB::select('select * from bookings where id = :id',
+                 ['id' => $id]);
+
+        return view('pages.showbooking')->with(['rooms' => $rooms,'bookings' => $bookings]);
     }
 
     /**
@@ -137,12 +160,29 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+      // Get the user id for this booking
+       $authUserId = $this->getAuthUserID($id);
+
+       // check if user is authorized
+       if ($authUserId != auth()->user()->id) {
+         return redirect('/booking')->with('error_message','You are unauthorized to delete this booking');
+       }
+
+        $booking = DB::delete('delete from bookings where id=:id',['id' => $id]);
+       if ($booking){
+         return redirect('/booking')->with('success_message','Booking is successful deleted');
+       }
+     }
     // get the room price
     public function getPrice($id)
     {
        $room = Room::find($id);
        return $room->price;
     }
+    //get the authorized user id
+    public function getAuthUserID($id){
+      $user = Booking::find($id);
+      return $user->user_id;
+    }
+
 }

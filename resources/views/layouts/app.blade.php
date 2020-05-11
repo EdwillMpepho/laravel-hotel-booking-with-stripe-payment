@@ -19,8 +19,8 @@
         @include('messages.message')
         @yield('content')
       </div>
-    </div>
-    <script src="{{asset('js/app.js')}}"></script>
-    <script src="{{asset('js/add-booking.js')}}"></script>
-</body>
+     </div>
+     <script src="{{asset('js/jquery-1.12.4.js')}}"></script>
+     <script src="{{asset('js/add-booking.js')}}"></script>
+    </body>
 </html>
