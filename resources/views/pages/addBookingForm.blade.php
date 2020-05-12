@@ -5,7 +5,8 @@
         @foreach ($bookings as $booking)
           <div class="row">
               <div class="col-xs-12">
-                   <form action="" method="POST">
+                    <form action="{{ route('booking.store')}}" method="POST">
+                        {{ csrf_field() }}
                      <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                      <div class="form-group">
                          Full Name:

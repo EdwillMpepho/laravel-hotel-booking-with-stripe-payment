@@ -11,7 +11,7 @@ class Booking extends Model
     /*
      * insertable fields
      */
-    protected $fillable = ['start_date','end-date','now','nrOfDays','price','room_id','user_id'];
+    protected $fillable = ['start_date','end_date','now','nrOfDays','price','room_id','user_id'];
 
     /**
      * Create a relationship between booking and rooms

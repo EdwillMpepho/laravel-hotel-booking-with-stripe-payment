@@ -41,7 +41,18 @@ class AddToPaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $id = $request->input('booking_id');
+         $price = $request->input('price');
+         $name = $request->input('name');
+         $telno = $request->input('telno');
+         $email = $request->input('email');
+         $startDate = $request->input('start_date');
+         $endDate = $request->input('end_date');
+         $nrOfDays = $request->input('nrOfDays');
+
+         Cart::add($id, 'Booking ', 1, $price)->associate('App\Booking');
+
+         return redirect('/addtopayment')->with('success_message','Booking is successfully added');
     }
 
     /**
