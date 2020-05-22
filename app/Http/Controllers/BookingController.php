@@ -18,6 +18,8 @@ class BookingController extends Controller
      */
     public function __construct()
     {
+        //call the method to delete expired bookings when app loads
+        $this->deleteExpiredBookings();
         $this->middleware('auth',['except' => ['index','show']]);
     }
     /**
@@ -184,5 +186,11 @@ class BookingController extends Controller
       $user = Booking::find($id);
       return $user->user_id;
     }
-
+    // delete expired bookings
+    public function deleteExpiredBookings(){
+        $today_date = date('Y-m-d');
+        $expired_bookings = DB::delete('delete from bookings where end_date <=:end_date',
+        ['end_date' => $today_date]);
+       return $today_date;
+    }
 }

@@ -7,8 +7,8 @@
           <div class="col-xs-12">
               <table class="table table-striped">
                   <tr>
+                      <th>Transaction</th>
                       <th>Full Names</th>
-                      <th>Email Address</th>
                       <th>Telephone</th>
                       <th>Check In Date</th>
                       <th>Check Out Date</th>
@@ -16,12 +16,12 @@
                       <th>SubTotal</th>
                       <th>Tax</th>
                       <th>Total</th>
-                      <td></td>
+                      <td>Check Out</td>
                   </tr>
                   @foreach (Cart::content() as $row)
                    <tr>
                       <td>{{ $row->name }}</td>
-                      <td>{{ $row->model->email }}</td>
+                      <td>{{ $row->model->name }}</td>
                       <td>{{ $row->model->telno }}</td>
                       <td>{{ $row->model->start_date }}</td>
                       <td>{{ $row->model->end_date }}</td>
@@ -35,6 +35,7 @@
                    </tr>
                   @endforeach
               </table>
+              <a class="btn btn-default btn-lg" href="#">Go Back</a>
           </div>
        </div>
     @else
