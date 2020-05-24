@@ -27,3 +27,8 @@ Route::get('/addtopayment', 'AddToPaymentController@index');
 Route::get('/addtopayment/create/{id}', 'AddToPaymentController@create');
 Route::post('/addtopayment', 'AddToPaymentController@store')->name('booking.add');
 
+Route::get('/payment', 'FinalBookingController@index')->name('finalbooking.index');
+Route::post('/payment', 'FinalBookingController@store')->name('finalbooking.store');
+
+Route::get('/checkout', 'CheckOutController@index')->name('checkout.index');
+

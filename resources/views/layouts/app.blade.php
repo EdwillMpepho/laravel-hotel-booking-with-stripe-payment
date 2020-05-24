@@ -6,8 +6,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'MET Hotel') }}</title>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Stripe Scripts -->
+    <script src="https://js.stripe.com/v3/"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
@@ -22,5 +22,8 @@
      </div>
      <script src="{{asset('js/jquery-1.12.4.js')}}"></script>
      <script src="{{asset('js/add-booking.js')}}"></script>
+     <script src="{{asset('js/mystripe.js')}}"></script>
+     <!--
+     <script src="{{ asset('js/app.js') }}" defer></script> -->
     </body>
 </html>

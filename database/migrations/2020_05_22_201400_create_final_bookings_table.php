@@ -14,8 +14,18 @@ class CreateFinalBookingsTable extends Migration
     public function up()
     {
         Schema::create('final_bookings', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->integer('id');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->date('now');
+            $table->integer('nrOfDays');
+            $table->double('price');
+            $table->integer('room_id');
             $table->timestamps();
+            $table->string('name');
+            $table->string('telno');
+            $table->string('email');
+            $table->integer('user_id');
         });
     }
 
