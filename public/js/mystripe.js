@@ -48,6 +48,9 @@ card.on('change', function(event) {
 var form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
  event.preventDefault();
+ // disable submit button for a case of a double click
+  document.getElementById('btnPayment').disable = true;
+ // some additional data
   var data = {
      name: document.getElementById('name').value,
      address: document.getElementById('address').value,
@@ -60,6 +63,7 @@ form.addEventListener('submit', function(event) {
      // Inform the user if there was an error.
      var errorElement = document.getElementById('card-errors');
      errorElement.textContent = result.error.message;
+     document.getElementById('btnPayment').disable = false;
    } else {
      // Send the token to your server.
      stripeTokenHandler(result.token);

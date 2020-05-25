@@ -1,5 +1,6 @@
 
 function getNrOfDays(){
+    console.log(getDaysInMonth(1, 2012));
   var end = document.getElementById('end').value;
   var start = document.getElementById('start').value;
   var msg = document.getElementById('message');
@@ -16,9 +17,9 @@ function getNrOfDays(){
               days = checkIn.getDate() - (checkIn.getDate() - checkOut.getDate());
           }else if (checkOut.getDate() > checkIn.getDate()) {
               days = checkOut.getDate() - checkIn.getDate();
-          }else if (checkIn.getDate() === checkOut.getDate()) {
-
-          }
+          }else {
+              console.log(getDaysInMonth(1, 2012));
+           }
           var nrOfDays = document.getElementById('nrOfDays').value = days;
       }else{
         msg.innerHTML='Check Out date must be greater than check in date';

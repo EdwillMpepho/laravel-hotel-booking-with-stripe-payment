@@ -28,9 +28,22 @@ class FinalBookingController extends Controller
      */
     public function store(Request $request)
     {
+        //get the values from inputs
+
+        $booking_id = $request->input('booking_id');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        $nrOfDays = $request->input('nrOfDays');
+        $room_id = $request->input('room_id');
+        $created_at = now();
+        $updated_at = now();
+        $name = $request->input('name_on_card');
+        $telno = $request->input('telno');
+        $email = $request->input('email');
         // get the total amount and email from the text box
         $total_amount = $request->input('total');
         $email = $request->input('email');
+        $user_id = auth()->user()->id;
          //replaces the commas and decimal on the total amount
         $new_total = str_replace(',','',$total_amount);
         $amount = str_replace('.','',$new_total);
@@ -44,11 +57,21 @@ class FinalBookingController extends Controller
           'description' => 'Booking Charge',
           'receipt_email' => $email
         ]);
-        return redirect('/checkout')->with('success_message','Thank you for choosing us,
-        Have a nice stay');
+
+        //insert booking to final bookings for ensuring customer pay all the amount
+        $final_payment = DB::insert('insert into final_bookings(id,start_date,end_date,nrOfDays,price,room_id,
+        created_at,updated_at,name,telno,email,user_id) values(?,?,?,?,?,?,?,?,?,?,?,?)',[$booking_id,
+        $start_date,$end_date,$nrOfDays,$amount,$room_id,$created_at,$updated_at,$name,$telno,$email,$user_id]);
+
+        Cart::instance('default')->destroy();
+        if ($final_payment) {
+            return redirect('/checkout')->with('success_message','Thank you for choosing us, Have a nice stay');
+        }
+
+
        }
        catch(Exception $ex) {
-
+         return redirect('/payment')->with('error_message', $ex->getMessage());
        }
 
     }

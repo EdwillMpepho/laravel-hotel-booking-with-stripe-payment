@@ -28,6 +28,13 @@ class AddToPaymentController extends Controller
      */
     public function create($id)
     {
+        // check if bookings is available from final bookings
+        $final_booking = DB::select('select * from final_bookings where id = :id',['id' => $id ]);
+        if ($final_booking) {
+            return redirect('/booking')->with('error_message','This customer had already paid for this booking');
+        }
+
+        // add booking for payment
         $bookings = DB::select('select * from bookings where user_id =:user_id and id =:id',
         ['user_id' => auth()->user()->id,'id'=>$id]);
         return view('pages.addBookingForm')->with('bookings',$bookings);

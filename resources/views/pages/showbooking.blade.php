@@ -20,7 +20,7 @@
                   @if($booking->user_id == Auth::user()->id)
                    <a class="btn btn-primary" href="/addtopayment/create/{{ $booking->id }}">Proceed for Payment</a>
                    @else
-                      <p>You are anuthorized to proceed with this booking</p>
+                      <p>You are not anuthorized to proceed with this booking</p>
                   @endif
                 </ul>
                 <!-- check if user is authorized -->
@@ -34,16 +34,16 @@
                     </form>
                 </div>
                 @else
-                    <p>You are anuthorized to delete this booking</p>
+                    <p>You are not anuthorized to delete this booking</p>
                 @endif
                 <!-- check if user is authorized  -->
                 @if($booking->user_id == Auth::user()->id)
                 <!-- edit this booking -->
                   <div class="edit-bookings">
-                     <a href="#" class="btn btn-warning">Edit Booking</a>
+                  <a href="/booking/{{ $booking->id }}/edit" class="btn btn-warning">Edit Booking</a>
                   </div>
                   @else
-                  <p>You are anuthorized to edit this booking</p>
+                  <p>You are not anuthorized to edit this booking</p>
                 @endif
             @else
                <p>There is no bookings</p>

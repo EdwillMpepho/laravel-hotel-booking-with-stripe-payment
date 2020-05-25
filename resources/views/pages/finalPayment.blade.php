@@ -13,6 +13,12 @@
               <form action="{{ route('finalbooking.store') }}" method="POST" id="payment-form">
                         {{ csrf_field() }}
                      <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                     <input type="hidden" name="room_id" value="{{ $booking->room_id }}">
+                     <input type="hidden" name="user_id" value="{{ $booking->user_id }}">
+                     <input type="hidden" name="start_date" value="{{ $booking->start_date }}" >
+                     <input type="hidden" name="end_date" value="{{ $booking->end_date }}" >
+                     <input type="hidden" name="nrOfDays" value="{{ $booking->nrOfDays }}" >
+                     <input type="hidden" name="price" value="{{ $booking->price }}" >
                      <div class="form-group">
                         <label for="card-element">
                           Credit or debit card
@@ -40,26 +46,10 @@
                        <input type="email" name="email" value="{{ $booking->email }}" class="form-control" readonly>
                     </div>
                     <div class="form-group">
-                        Check In Date:
-                       <input type="text" name="start_date" value="{{ $booking->start_date }}" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        Check Out Date:
-                       <input type="text" name="end_date" value="{{ $booking->end_date }}" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        Number Of Days:
-                       <input type="text" name="nrOfDays" value="{{ $booking->nrOfDays }}" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        Price:
-                       <input type="text" name="price" value="{{ $booking->price }}" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
                         Total Price(Inc:tax):
                       <input type="text" name="total" value="{{ Cart::total() }}"  id="total" class="form-control"  required readonly>
                     </div>
-                    <input type="submit" id="btnSubmit" value="Make Payment" class="btn btn-primary">
+                    <input type="submit" id="btnPayment" value="Make Payment" class="btn btn-primary">
                    </form>
               </div>
           </div>

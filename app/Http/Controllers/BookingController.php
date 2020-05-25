@@ -139,7 +139,12 @@ class BookingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $rooms = DB::select('select id,type,price from rooms where id
+        in(select id from bookings where id = :id )',['id' => $id ]);
+        $bookings = DB::select('select * from bookings where id = :id',
+        ['id' => $id]);
+
+        return view('pages.editbooking')->with(['rooms' => $rooms,'bookings' => $bookings]);
     }
 
     /**
@@ -151,7 +156,45 @@ class BookingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'start_date' => 'date',
+            'end_date'   => 'date',
+            'nrOfDays'   => 'required',
+            'price'      => 'numeric',
+            'room_id'    => 'required',
+            'name'       => 'required|min:4|max:191',
+            'email'      => 'required|email',
+            'telno'      => 'required|min:10'
+       ]);
+
+       // getting data from inputs
+       $name = $request->input('name');
+       $telno = $request->input('telno');
+       $nrOfDays = $request->input('nrOfDays');
+       $email = $request->input('email');
+       $start_date = $request->input('start');
+       $end_date = $request->input('end');
+       $room_id = $request->input('room_id');
+       //auth user id
+       $user_id = auth()->user()->id;
+       //get a price via room id
+       $price = $this->getPrice($room_id);
+       //get a total Price from a model
+       $totalPrice = new TotalPrice();
+       //get totalprice
+       $totalamount = $totalPrice->getTotalPrice($nrOfDays,$price);
+       $updated_at = now();
+       $created_at = now();
+
+       $editBooking = DB::update('update bookings set start_date =:start_date,end_date=:end_date,nrOfDays=:nrOfDays,
+        price=:price,created_at=:created_at,updated_at=:updated_at,name=:name,telno=:telno,email=:email
+        where id=:id',['start_date' => $start_date,'end_date' =>$end_date, 'nrOfDays' => $nrOfDays,
+        'price' => $totalamount,'created_at' => $created_at, 'updated_at' => $updated_at,'name'=> $name,
+        'telno'=>$telno,'email'=>$email,'id'=>$id]);
+
+        if ($editBooking ) {
+          return redirect('/booking')->with('success_message','Data was updated successfully');
+        }
     }
 
     /**
