@@ -17,6 +17,8 @@ function getNrOfDays(){
               days = checkIn.getDate() - (checkIn.getDate() - checkOut.getDate());
           }else if (checkOut.getDate() > checkIn.getDate()) {
               days = checkOut.getDate() - checkIn.getDate();
+          }else if (checkIn.getDate() == checkOut.getDate()){
+             console.log('Dates are equal');
           }
           var nrOfDays = document.getElementById('nrOfDays').value = days;
         }else{
