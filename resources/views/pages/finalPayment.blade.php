@@ -31,7 +31,7 @@
                       </div>
                       <div class="form-group">
                         Name on the card:
-                      <input type="text" name="name_on_card" value="{{ $booking->name }}"  id="name" class="form-control"  required readonly>
+                      <input type="text" name="name" value="{{ $booking->name }}"  id="name" class="form-control"  required readonly>
                     </div>
                     <div class="form-group">
                         Address:

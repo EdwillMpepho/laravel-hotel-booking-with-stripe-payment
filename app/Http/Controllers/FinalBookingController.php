@@ -37,7 +37,7 @@ class FinalBookingController extends Controller
         $room_id = $request->input('room_id');
         $created_at = now();
         $updated_at = now();
-        $name = $request->input('name_on_card');
+        $name = $request->input('name');
         $telno = $request->input('telno');
         $email = $request->input('email');
         // get the total amount and email from the text box
