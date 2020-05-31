@@ -30,7 +30,7 @@
                       <td>{{ Cart::tax() }}</td>
                       <td>{{ Cart::total() }}</td>
                       <td>
-                          <a class="btn btn-info" href="/payment">Check Out</a>
+                       <a class="btn btn-info" href="/payment/{{ $row->model->id }}">Check Out</a>
                       </td>
                    </tr>
                   @endforeach

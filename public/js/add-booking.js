@@ -21,9 +21,9 @@ function getNrOfDays() {
         //check if check out date is less than check in date
         if (checkIn < checkOut) {
             if (checkIn.getDate() > checkOut.getDate()) {
-               if (checkIn.getFullYear() <= (checkOut.getFullYear() + 1)) {
-                   if ((checkInMonth == checkOutMonth) || ( checkOutMonth == (checkInMonth + 1)) ) {
-                       days = checkIn.getDate() - (checkIn.getDate() - checkOut.getDate());
+               if ((checkInYear == checkOutYear ) || (checkOutYear == (checkInYear + 1))) {
+                   if (( checkOutMonth <= (checkInMonth + 1)) ) {
+                       days = (monthDays - checkIn.getDate()) + checkOut.getDate();
                    } else {
                        msg.innerHTML = 'Your booking days exceeds the limit of 32 days';
                    }
@@ -31,20 +31,39 @@ function getNrOfDays() {
                     msg.innerHTML = 'Please rebook again an error occurred';
                 }
             } else if (checkOut.getDate() > checkIn.getDate()) {
-                days = checkOut.getDate() - checkIn.getDate();
-            } else if (checkIn.getDate() === checkOut.getDate()) {
-                if (monthDays == 30) {
-                    days = 30;
-                }
-                if (monthDays == 31) {
-                    days = 31;
-                }
-                if (monthDays == 29) {
-                    days = 29;
-                }
-                if (monthDays == 28) {
-                    days = 28;
-                }
+                if ((checkInYear == checkOutYear ) || (checkOutYear == (checkInYear + 1))) {
+                    if ((checkInMonth == checkOutMonth)) {
+                          days = checkOut.getDate() - checkIn.getDate();
+                    } else {
+                        msg.innerHTML = 'Your booking days exceeds the limit of 32 days';
+                    }
+                 } else{
+                     msg.innerHTML = 'Please rebook again an error occurred';
+                 }
+                } else if (checkIn.getDate() === checkOut.getDate()) {
+                    if ((checkInYear == checkOutYear ) || (checkOutYear == (checkInYear + 1))) {
+                        if (( checkOutMonth <= (checkInMonth + 1)) ) {
+                            // get the number of stayed at the hotel
+                             if (monthDays == 30) {
+                                days = 30;
+                             }
+                             if (monthDays == 31) {
+                                days = 31;
+                             }
+                            if (monthDays == 29) {
+                                days = 29;
+                             }
+                            if (monthDays == 28) {
+                                days = 28;
+                            }
+                           } else {
+                            msg.innerHTML = 'Your booking days exceeds the limit of 32 days';
+                        }
+                     } else{
+                         msg.innerHTML = 'Please rebook again an error occurred';
+                     }
+
+
             }
             var nrOfDays = (document.getElementById("nrOfDays").value = days);
         } else {

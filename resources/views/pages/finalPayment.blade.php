@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-group">
                         Total Price(Inc:tax):
-                      <input type="text" name="total" value="{{ Cart::total() }}"  id="total" class="form-control"  required readonly>
+                      <input type="text" name="total" value="{{  $booking->price }}"  id="total" class="form-control"  required readonly>
                     </div>
                     <input type="submit" id="btnPayment" value="Make Payment" class="btn btn-primary">
                    </form>

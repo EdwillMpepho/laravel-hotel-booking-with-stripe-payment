@@ -14,10 +14,10 @@ class FinalBookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
 
-        $bookings = DB::select('select * from bookings where user_id =:user_id',['user_id' => auth()->user()->id]);
+        $bookings = DB::select('select * from bookings where id =:id',['id' => $id]);
         return view('pages.finalPayment')->with('bookings',$bookings);
     }
     /**
