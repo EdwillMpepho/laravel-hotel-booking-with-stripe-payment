@@ -2,7 +2,7 @@
 
 (function() {
     // Create a Stripe client.
-var stripe = Stripe('pk_test_hmSdzSCSIjZYAqx94cXpmHje00E6YbFJKN');
+var stripe = Stripe('you own information');
 
 // Create an instance of Elements.
 var elements = stripe.elements();

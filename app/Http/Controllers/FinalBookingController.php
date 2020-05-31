@@ -48,7 +48,7 @@ class FinalBookingController extends Controller
         $new_total = str_replace(',','',$total_amount);
         $amount = str_replace('.','',$new_total);
        try{
-        \Stripe\Stripe::setApiKey('sk_test_1llQ7a6Ha5q9I0ztYNZoMEmR00qlgGPsy2');
+        \Stripe\Stripe::setApiKey('your own information');
         // `source` is obtained with Stripe.js; see https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token
         \Stripe\Charge::create([
           'amount' => $amount,
